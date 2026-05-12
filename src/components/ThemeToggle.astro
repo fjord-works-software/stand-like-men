@@ -1,33 +1,30 @@
 ---
 ---
 
-<div id="theme-toggle" class="flex items-center rounded-lg border border-border overflow-hidden text-xs font-medium">
-  {(['system', 'dark', 'light'] as const).map((t) => (
-    <button
-      data-theme-value={t}
-      aria-label={`${t} theme`}
-      class="px-2.5 py-1.5 text-muted hover:text-fg hover:bg-surface transition-colors capitalize cursor-pointer"
-    >
-      {t === 'system' ? (
-        <svg viewBox="0 0 16 16" fill="currentColor" class="w-3.5 h-3.5" aria-hidden="true">
-          <path d="M8 1a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 8 1ZM8 13a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 8 13ZM2.343 3.404a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 1 1-1.06 1.061l-1.06-1.06a.75.75 0 0 1 0-1.061ZM11.536 11.536a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 1 1-1.06 1.061l-1.06-1.06a.75.75 0 0 1 0-1.061ZM1 8a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5A.75.75 0 0 1 1 8ZM13 8a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5A.75.75 0 0 1 13 8ZM3.404 13.657a.75.75 0 0 1 0-1.06l1.06-1.061a.75.75 0 1 1 1.061 1.06l-1.06 1.061a.75.75 0 0 1-1.061 0ZM11.536 4.464a.75.75 0 0 1 0-1.06l1.06-1.061a.75.75 0 1 1 1.061 1.06l-1.06 1.061a.75.75 0 0 1-1.061 0ZM5.5 8a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0Z"/>
-        </svg>
-      ) : t === 'dark' ? (
-        <svg viewBox="0 0 16 16" fill="currentColor" class="w-3.5 h-3.5" aria-hidden="true">
-          <path d="M7.9 1.5A6.5 6.5 0 1 0 14.5 8.1 5 5 0 0 1 7.9 1.5Z"/>
-        </svg>
-      ) : (
-        <svg viewBox="0 0 16 16" fill="currentColor" class="w-3.5 h-3.5" aria-hidden="true">
-          <path fill-rule="evenodd" d="M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2ZM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Z" clip-rule="evenodd"/>
-          <path d="M8 4a4 4 0 0 0 0 8V4Z"/>
-        </svg>
-      )}
-    </button>
-  ))}
-</div>
+<button
+  id="theme-toggle"
+  aria-label="Switch theme"
+  title="Switch theme"
+  class="w-8 h-8 flex items-center justify-center rounded-lg border border-accent text-accent transition-colors cursor-pointer"
+>
+  <!-- System icon -->
+  <svg data-theme-icon="system" viewBox="0 0 16 16" fill="currentColor" class="w-3.5 h-3.5" aria-hidden="true">
+    <path d="M8 1a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 8 1ZM8 13a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 8 13ZM2.343 3.404a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 1 1-1.06 1.061l-1.06-1.06a.75.75 0 0 1 0-1.061ZM11.536 11.536a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 1 1-1.06 1.061l-1.06-1.06a.75.75 0 0 1 0-1.061ZM1 8a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5A.75.75 0 0 1 1 8ZM13 8a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5A.75.75 0 0 1 13 8ZM3.404 13.657a.75.75 0 0 1 0-1.06l1.06-1.061a.75.75 0 1 1 1.061 1.06l-1.06 1.061a.75.75 0 0 1-1.061 0ZM11.536 4.464a.75.75 0 0 1 0-1.06l1.06-1.061a.75.75 0 1 1 1.061 1.06l-1.06 1.061a.75.75 0 0 1-1.061 0ZM5.5 8a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0Z"/>
+  </svg>
+  <!-- Dark icon -->
+  <svg data-theme-icon="dark" viewBox="0 0 16 16" fill="currentColor" class="w-3.5 h-3.5 hidden" aria-hidden="true">
+    <path d="M7.9 1.5A6.5 6.5 0 1 0 14.5 8.1 5 5 0 0 1 7.9 1.5Z"/>
+  </svg>
+  <!-- Light icon -->
+  <svg data-theme-icon="light" viewBox="0 0 16 16" fill="currentColor" class="w-3.5 h-3.5 hidden" aria-hidden="true">
+    <path fill-rule="evenodd" d="M8 2a6 6 0 1 0 0 12A6 6 0 0 0 8 2ZM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Z" clip-rule="evenodd"/>
+    <path d="M8 4a4 4 0 0 0 0 8V4Z"/>
+  </svg>
+</button>
 
 <script>
   const KEY = 'slm-theme';
+  const CYCLE: string[] = ['system', 'dark', 'light'];
 
   function getStored(): string {
     return localStorage.getItem(KEY) ?? 'system';
@@ -40,23 +37,29 @@
       document.documentElement.dataset.theme = value;
     }
     localStorage.setItem(KEY, value);
-    updateButtons(value);
+    syncButtons(value);
   }
 
-  function updateButtons(active: string) {
-    document.querySelectorAll<HTMLButtonElement>('[data-theme-value]').forEach((btn) => {
-      const isActive = btn.dataset.themeValue === active;
-      btn.classList.toggle('text-accent', isActive);
-      btn.classList.toggle('bg-accent-dim', isActive);
-      btn.classList.toggle('text-muted', !isActive);
+  function syncButtons(active: string) {
+    document.querySelectorAll<HTMLButtonElement>('#theme-toggle').forEach((btn) => {
+      btn.setAttribute('aria-label', `Theme: ${active} — click to cycle`);
+      btn.setAttribute('title', `Theme: ${active}`);
+      btn.querySelectorAll<SVGElement>('[data-theme-icon]').forEach((icon) => {
+        icon.classList.toggle('hidden', icon.dataset.themeIcon !== active);
+      });
     });
   }
 
-  // Init
-  updateButtons(getStored());
+  function cycleTheme() {
+    const current = getStored();
+    const next = CYCLE[(CYCLE.indexOf(current) + 1) % CYCLE.length];
+    applyTheme(next);
+  }
 
-  // Clicks
-  document.querySelectorAll<HTMLButtonElement>('[data-theme-value]').forEach((btn) => {
-    btn.addEventListener('click', () => applyTheme(btn.dataset.themeValue!));
+  // Init all toggles on the page (desktop nav + mobile menu each render one)
+  syncButtons(getStored());
+
+  document.querySelectorAll<HTMLButtonElement>('#theme-toggle').forEach((btn) => {
+    btn.addEventListener('click', cycleTheme);
   });
 </script>
