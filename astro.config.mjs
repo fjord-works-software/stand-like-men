@@ -3,9 +3,11 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
+const BASE = (process.env.BASE_PATH || '/').replace(/\/+$/, '') + '/';
+
 export default defineConfig({
   site: 'https://fjordworkssoftware.com',
-  base: process.env.BASE_PATH ?? '/',
+  base: BASE,
   vite: {
     plugins: [tailwindcss()],
   },
