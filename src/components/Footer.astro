@@ -1,0 +1,14 @@
+---
+import SocialLinks from './SocialLinks.astro';
+---
+
+<footer class="border-t border-border mt-16">
+  <div class="max-w-5xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+    <div class="text-center sm:text-left">
+      <p class="font-semibold text-fg">Stand Like Men Podcast</p>
+      <p class="text-muted text-sm mt-1">Hosted by Daniel Chalenburg &amp; Logan Ingram</p>
+    </div>
+    <SocialLinks />
+    <p class="text-muted/60 text-xs">&copy; {new Date().getFullYear()} Stand Like Men</p>
+  </div>
+</footer>

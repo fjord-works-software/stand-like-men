@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SocialLinks from '../../components/SocialLinks.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const episodes = await getCollection('episodes');
+  return episodes.map((ep) => ({ params: { slug: ep.id }, props: { ep } }));
+}
+
+const { ep } = Astro.props;
+const { Content } = await render(ep);
+
+const formattedDate = ep.data.publishDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const streamingLinks = [
+  { label: 'Apple Podcasts', href: ep.data.appleUrl },
+  { label: 'Spotify', href: ep.data.spotifyUrl },
+  { label: 'YouTube', href: ep.data.youtubeUrl },
+].filter((l): l is { label: string; href: string } => !!l.href);
+---
+
+<BaseLayout title={ep.data.title} description={ep.data.description}>
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <a href="/episodes" class="text-sm text-muted hover:text-accent transition-colors mb-8 inline-block">
+      &larr; All episodes
+    </a>
+
+    <div class="flex items-center gap-3 mb-4">
+      <span class="text-xs font-mono text-accent bg-accent-dim px-2 py-1 rounded">
+        EP {String(ep.data.episodeNumber).padStart(3, '0')}
+      </span>
+      <span class="text-muted text-sm">{formattedDate}</span>
+      <span class="text-muted/70 text-sm ml-auto">{ep.data.duration}</span>
+    </div>
+
+    <h1 class="text-4xl font-extrabold text-fg mb-4">{ep.data.title}</h1>
+    <p class="text-muted text-lg mb-8">{ep.data.description}</p>
+
+    <audio controls class="w-full mb-8 rounded-lg" src={ep.data.audioUrl}>
+      Your browser does not support the audio element.
+    </audio>
+
+    {streamingLinks.length > 0 && (
+      <div class="flex flex-wrap gap-3 mb-12">
+        {streamingLinks.map(({ label, href }) => (
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-4 py-2 border border-border text-muted text-sm rounded-lg hover:border-accent hover:text-accent transition-colors"
+          >
+            Listen on {label}
+          </a>
+        ))}
+      </div>
+    )}
+
+    <div class="prose prose-stone dark:prose-invert max-w-none">
+      <Content />
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-border">
+      <p class="text-muted text-sm mb-4">Share this episode</p>
+      <SocialLinks />
+    </div>
+  </article>
+</BaseLayout>

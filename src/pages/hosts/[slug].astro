@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const hosts = await getCollection('hosts');
+  return hosts.map((host) => ({ params: { slug: host.id }, props: { host } }));
+}
+
+const { host } = Astro.props;
+const { Content } = await render(host);
+---
+
+<BaseLayout title={host.data.name} description={`About ${host.data.name}, co-host of the Stand Like Men Podcast.`}>
+  <div class="max-w-3xl mx-auto px-6 py-16">
+    <a href="/" class="text-sm text-muted hover:text-accent transition-colors mb-8 inline-block">
+      &larr; Home
+    </a>
+
+    <div class="flex items-start gap-8 mb-10">
+      {host.data.headshot ? (
+        <img
+          src={host.data.headshot}
+          alt={host.data.name}
+          class="w-28 h-28 rounded-full object-cover border-2 border-border shrink-0"
+        />
+      ) : (
+        <div class="w-28 h-28 rounded-full bg-border shrink-0" />
+      )}
+      <div>
+        <p class="text-accent text-sm font-semibold tracking-widest uppercase mb-2">Co-host</p>
+        <h1 class="text-4xl font-extrabold text-fg">{host.data.name}</h1>
+        <div class="flex gap-4 mt-4">
+          {host.data.twitterUrl && (
+            <a href={host.data.twitterUrl} target="_blank" rel="noopener noreferrer" class="text-muted hover:text-fg text-sm transition-colors">
+              Twitter/X
+            </a>
+          )}
+          {host.data.instagramUrl && (
+            <a href={host.data.instagramUrl} target="_blank" rel="noopener noreferrer" class="text-muted hover:text-fg text-sm transition-colors">
+              Instagram
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+
+    <div class="prose prose-stone dark:prose-invert max-w-none">
+      <Content />
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,48 @@
+backend:
+  name: github
+  repo: YOUR_GITHUB_USERNAME/stand-like-men
+  branch: main
+  # base_url: https://your-oauth-proxy.example.com  # set this after deploying the OAuth proxy
+
+media_folder: public/images
+public_folder: /images
+
+collections:
+  - name: episodes
+    label: Episodes
+    folder: src/content/episodes
+    create: true
+    slug: "ep{{fields.episodeNumber}}-{{slug}}"
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Episode Number, name: episodeNumber, widget: number, value_type: int }
+      - { label: Publish Date, name: publishDate, widget: datetime, date_format: YYYY-MM-DD, time_format: false }
+      - { label: Duration, name: duration, widget: string, hint: "e.g. 45:00" }
+      - { label: Audio URL, name: audioUrl, widget: string }
+      - { label: Spotify URL, name: spotifyUrl, widget: string, required: false }
+      - { label: Apple Podcasts URL, name: appleUrl, widget: string, required: false }
+      - { label: YouTube URL, name: youtubeUrl, widget: string, required: false }
+      - { label: Description, name: description, widget: text }
+      - { label: Show Notes, name: body, widget: markdown }
+
+  - name: blog
+    label: Blog
+    folder: src/content/blog
+    create: true
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Publish Date, name: publishDate, widget: datetime, date_format: YYYY-MM-DD, time_format: false }
+      - { label: Author, name: author, widget: select, options: [{ label: "Daniel Chalenburg", value: daniel }, { label: "Logan Ingram", value: logan }] }
+      - { label: Excerpt, name: excerpt, widget: text }
+      - { label: Body, name: body, widget: markdown }
+
+  - name: hosts
+    label: Hosts
+    folder: src/content/hosts
+    create: false
+    fields:
+      - { label: Name, name: name, widget: string }
+      - { label: Headshot, name: headshot, widget: image, required: false }
+      - { label: Twitter/X URL, name: twitterUrl, widget: string, required: false }
+      - { label: Instagram URL, name: instagramUrl, widget: string, required: false }
+      - { label: Bio, name: body, widget: markdown }
