@@ -1,0 +1,47 @@
+---
+---
+<!--
+  Isometric cube wireframe pattern, tiled from the logo's geometric motif.
+  Tile: 87×150px, edge e=50px (pointy-top hexagon).
+  Row 1 cube center: (43, 37.5) — Row 2 cube center: (0, 112.5)
+  Shared vertices confirm correct close-packed tessellation.
+-->
+<div class="fixed inset-0 pointer-events-none" style="z-index: -1;" aria-hidden="true">
+  <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="slm-hexcube" x="0" y="0" width="87" height="150" patternUnits="userSpaceOnUse">
+        <!-- Row 1: center (43, 37.5), e=50 -->
+        <!-- Outline: top(43,-12.5) UR(87,12.5) LR(87,62.5) bot(43,87.5) LL(0,62.5) UL(0,12.5) -->
+        <!-- Spokes from center to top, LR, LL -->
+        <path
+          d="M43,-12.5 L87,12.5 L87,62.5 L43,87.5 L0,62.5 L0,12.5 Z
+             M43,37.5 L43,-12.5
+             M43,37.5 L87,62.5
+             M43,37.5 L0,62.5"
+          fill="none"
+          stroke="var(--accent)"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          style="opacity: var(--pattern-opacity)"
+        />
+        <!-- Row 2: center (0, 112.5), e=50 -->
+        <!-- Shares top(0,62.5)=Row1 LL, UR(43,87.5)=Row1 bot -->
+        <!-- Outline: top(0,62.5) UR(43,87.5) LR(43,137.5) bot(0,162.5) LL(-43,137.5) UL(-43,87.5) -->
+        <path
+          d="M0,62.5 L43,87.5 L43,137.5 L0,162.5 L-43,137.5 L-43,87.5 Z
+             M0,112.5 L0,62.5
+             M0,112.5 L43,137.5
+             M0,112.5 L-43,137.5"
+          fill="none"
+          stroke="var(--accent)"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          style="opacity: var(--pattern-opacity)"
+        />
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#slm-hexcube)" />
+  </svg>
+</div>

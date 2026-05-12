@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import BackgroundPattern from '../components/BackgroundPattern.astro';
 
 interface Props {
   title: string;
@@ -28,6 +29,7 @@ const { title, description = 'Stand Like Men Podcast with Daniel Chalenburg and 
     <title>{title} | Stand Like Men Podcast</title>
   </head>
   <body class="bg-bg text-fg min-h-screen flex flex-col transition-colors duration-200">
+    <BackgroundPattern />
     <Nav />
     <main class="flex-1">
       <slot />
