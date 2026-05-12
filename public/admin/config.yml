@@ -1,6 +1,8 @@
+local_backend: true
+
 backend:
   name: github
-  repo: YOUR_GITHUB_USERNAME/stand-like-men
+  repo: fjord-works-software/stand-like-men
   branch: main
   # base_url: https://your-oauth-proxy.example.com  # set this after deploying the OAuth proxy
 
