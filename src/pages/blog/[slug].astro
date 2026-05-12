@@ -20,7 +20,7 @@ const formattedDate = post.data.publishDate.toLocaleDateString('en-US', {
 ---
 
 <BaseLayout title={post.data.title} description={post.data.excerpt}>
-  <article class="max-w-3xl mx-auto px-6 py-16">
+  <article class="max-w-3xl mx-auto px-6 py-16 bg-surface/50 rounded-2xl my-8">
     <a href="/blog" class="text-sm text-muted hover:text-accent transition-colors mb-8 inline-block">
       &larr; All articles
     </a>
@@ -36,7 +36,7 @@ const formattedDate = post.data.publishDate.toLocaleDateString('en-US', {
     <h1 class="text-4xl font-extrabold text-fg mb-6">{post.data.title}</h1>
     <p class="text-muted text-lg mb-10 border-l-2 border-accent pl-4">{post.data.excerpt}</p>
 
-    <div class="prose prose-stone dark:prose-invert max-w-none">
+    <div class="prose max-w-none">
       <Content />
     </div>
   </article>
