@@ -42,7 +42,7 @@
   --accent: #16a34a;
   --accent-hover: #15803d;
   --accent-dim: #dcfce7;
-  --pattern-opacity: 0.07;
+  --pattern-opacity: 0.35;
 }
 
 /* ── Dark (explicit) ─────────────────────────────── */
@@ -55,7 +55,7 @@
   --accent: #22c55e;
   --accent-hover: #4ade80;
   --accent-dim: #14532d;
-  --pattern-opacity: 0.18;
+  --pattern-opacity: 0.35;
 }
 
 /* ── System dark (no explicit override) ─────────── */
@@ -69,6 +69,6 @@
     --accent: #22c55e;
     --accent-hover: #4ade80;
     --accent-dim: #14532d;
-    --pattern-opacity: 0.18;
+    --pattern-opacity: 0.35;
   }
 }

@@ -6,7 +6,21 @@
   Row 1 cube center: (43, 37.5) — Row 2 cube center: (0, 112.5)
   Shared vertices confirm correct close-packed tessellation.
 -->
-<div class="fixed inset-0 pointer-events-none" style="z-index: -1;" aria-hidden="true">
+<div
+  class="fixed inset-0 pointer-events-none"
+  style="
+    z-index: -1;
+    mask-image:
+      radial-gradient(ellipse 55% 55% at 0% 0%, black 0%, transparent 100%),
+      radial-gradient(ellipse 55% 55% at 100% 100%, black 0%, transparent 100%);
+    mask-composite: add;
+    -webkit-mask-image:
+      radial-gradient(ellipse 55% 55% at 0% 0%, black 0%, transparent 100%),
+      radial-gradient(ellipse 55% 55% at 100% 100%, black 0%, transparent 100%);
+    -webkit-mask-composite: source-over;
+  "
+  aria-hidden="true"
+>
   <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="overflow: hidden;">
     <defs>
       <pattern id="slm-hexcube" x="0" y="0" width="87" height="150" patternUnits="userSpaceOnUse">
