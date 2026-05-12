@@ -25,11 +25,11 @@ const formattedDate = publishDate.toLocaleDateString('en-US', {
     <a href={`/hosts/${author}`} class="hover:text-accent transition-colors">{authorNames[author]}</a>
   </div>
   <h2 class="text-lg font-semibold text-fg group-hover:text-accent transition-colors mb-2">
-    <a href={`/blog/${slug}`}>{title}</a>
+    <a href={`${import.meta.env.BASE_URL}blog/${slug}`}>{title}</a>
   </h2>
   <p class="text-muted text-sm line-clamp-2">{excerpt}</p>
   <a
-    href={`/blog/${slug}`}
+    href={`${import.meta.env.BASE_URL}blog/${slug}`}
     class="inline-flex items-center gap-1 mt-4 text-sm text-accent hover:text-accent-hover font-medium transition-colors"
   >
     Read more
