@@ -4,8 +4,8 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://YOUR_GITHUB_USERNAME.github.io',
-  // base: '/stand-like-men', // uncomment if deploying to a sub-path repo
+  site: 'https://fjordworkssoftware.com',
+  base: process.env.BASE_PATH ?? '/',
   vite: {
     plugins: [tailwindcss()],
   },

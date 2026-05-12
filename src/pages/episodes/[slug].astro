@@ -26,7 +26,7 @@ const streamingLinks = [
 
 <BaseLayout title={ep.data.title} description={ep.data.description}>
   <article class="max-w-3xl mx-auto px-6 py-16 bg-surface/50 rounded-2xl my-8">
-    <a href="/episodes" class="text-sm text-muted hover:text-accent transition-colors mb-8 inline-block">
+    <a href={`${import.meta.env.BASE_URL}episodes`} class="text-sm text-muted hover:text-accent transition-colors mb-8 inline-block">
       &larr; All episodes
     </a>
 

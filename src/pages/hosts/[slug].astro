@@ -13,7 +13,7 @@ const { Content } = await render(host);
 
 <BaseLayout title={host.data.name} description={`About ${host.data.name}, co-host of the Stand Like Men Podcast.`}>
   <div class="max-w-3xl mx-auto px-6 py-16 bg-surface/50 rounded-2xl my-8">
-    <a href="/" class="text-sm text-muted hover:text-accent transition-colors mb-8 inline-block">
+    <a href={import.meta.env.BASE_URL} class="text-sm text-muted hover:text-accent transition-colors mb-8 inline-block">
       &larr; Home
     </a>
 

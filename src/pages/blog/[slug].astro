@@ -21,14 +21,14 @@ const formattedDate = post.data.publishDate.toLocaleDateString('en-US', {
 
 <BaseLayout title={post.data.title} description={post.data.excerpt}>
   <article class="max-w-3xl mx-auto px-6 py-16 bg-surface/50 rounded-2xl my-8">
-    <a href="/blog" class="text-sm text-muted hover:text-accent transition-colors mb-8 inline-block">
+    <a href={`${import.meta.env.BASE_URL}blog`} class="text-sm text-muted hover:text-accent transition-colors mb-8 inline-block">
       &larr; All articles
     </a>
 
     <div class="flex items-center gap-3 mb-4 text-sm text-muted">
       <span>{formattedDate}</span>
       <span>&middot;</span>
-      <a href={`/hosts/${post.data.author}`} class="hover:text-accent transition-colors">
+      <a href={`${import.meta.env.BASE_URL}hosts/${post.data.author}`} class="hover:text-accent transition-colors">
         {authorNames[post.data.author]}
       </a>
     </div>
