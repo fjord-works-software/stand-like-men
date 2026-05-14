@@ -32,6 +32,7 @@ collections:
     folder: src/content/blog
     create: true
     fields:
+      - { label: Draft, name: draft, widget: boolean, default: true, hint: "When enabled, this post will not appear on the site." }
       - { label: Title, name: title, widget: string }
       - { label: Publish Date, name: publishDate, widget: datetime, date_format: YYYY-MM-DD, time_format: false }
       - { label: Author, name: author, widget: select, options: [{ label: "Daniel Chalenburg", value: daniel }, { label: "Logan Ingram", value: logan }] }

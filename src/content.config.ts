@@ -19,6 +19,7 @@ const episodes = defineCollection({
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
   schema: z.object({
+    draft: z.boolean().optional(),
     title: z.string(),
     publishDate: z.coerce.date(),
     author: z.enum(['daniel', 'logan']),
