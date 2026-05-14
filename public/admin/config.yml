@@ -4,7 +4,7 @@ backend:
   name: github
   repo: fjord-works-software/stand-like-men
   branch: main
-  # base_url: https://your-oauth-proxy.example.com  # set this after deploying the OAuth proxy
+  base_url: https://sveltia-cms-auth.fjordworkssoftware.workers.dev/ 
 
 media_folder: public/images
 public_folder: /images
