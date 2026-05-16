@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 const BASE = (process.env.BASE_PATH || '/').replace(/\/+$/, '') + '/';
 
 export default defineConfig({
-  site: 'https://fjordworkssoftware.com',
+  site: 'https://standlikemen.com',
   base: BASE,
   vite: {
     plugins: [tailwindcss()],
