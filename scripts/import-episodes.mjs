@@ -1,0 +1,100 @@
+import { writeFileSync, mkdirSync } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const OUTPUT_DIR = join(__dirname, '../src/content/episodes');
+
+function extractTag(xml, tag) {
+  const nsTag = tag.includes(':') ? tag : tag;
+  const re = new RegExp(`<${nsTag}[^>]*>([\\s\\S]*?)<\\/${nsTag}>`, 'i');
+  const m = xml.match(re);
+  return m ? m[1].trim().replace(/^<!\[CDATA\[/, '').replace(/\]\]>$/, '').trim() : '';
+}
+
+function extractAttr(xml, tag, attr) {
+  const re = new RegExp(`<${tag}[^>]*${attr}="([^"]*)"`, 'i');
+  const m = xml.match(re);
+  return m ? m[1] : '';
+}
+
+function parseDuration(raw) {
+  if (!raw) return '0:00';
+  // Already MM:SS or HH:MM:SS
+  if (raw.includes(':')) {
+    const parts = raw.split(':').map(Number);
+    if (parts.length === 3) {
+      const [h, m, s] = parts;
+      const totalMins = h * 60 + m;
+      return `${totalMins}:${String(s).padStart(2, '0')}`;
+    }
+    return raw; // already MM:SS
+  }
+  // Seconds as integer
+  const secs = parseInt(raw, 10);
+  const m = Math.floor(secs / 60);
+  const s = secs % 60;
+  return `${m}:${String(s).padStart(2, '0')}`;
+}
+
+function toSlug(title) {
+  return title
+    .toLowerCase()
+    .replace(/['']/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function formatDate(rfc822) {
+  const d = new Date(rfc822);
+  return d.toISOString().split('T')[0];
+}
+
+function escapeFrontmatter(str) {
+  return str.replace(/"/g, '\\"');
+}
+
+const res = await fetch('https://feed.podbean.com/loganek/feed.xml');
+const xml = await res.text();
+
+const items = xml.split('<item>').slice(1).map(s => s.split('</item>')[0]);
+
+console.log(`Found ${items.length} episodes`);
+
+mkdirSync(OUTPUT_DIR, { recursive: true });
+
+for (const item of items) {
+  const title = extractTag(item, 'title');
+  const pubDate = extractTag(item, 'pubDate');
+  const audioUrl = extractAttr(item, 'enclosure', 'url');
+  const duration = parseDuration(extractTag(item, 'itunes:duration'));
+  const epNum = parseInt(extractTag(item, 'itunes:episode'), 10);
+  const description = extractTag(item, 'itunes:summary') || extractTag(item, 'description');
+
+  if (!epNum) {
+    console.warn(`Skipping "${title}" — no episode number found`);
+    continue;
+  }
+
+  const epNumPadded = String(epNum).padStart(3, '0');
+  const slug = toSlug(title);
+  const filename = `ep${epNumPadded}-${slug}.md`;
+  const date = formatDate(pubDate);
+
+  const frontmatter = `---
+title: "${escapeFrontmatter(title)}"
+episodeNumber: ${epNum}
+publishDate: ${date}
+duration: "${duration}"
+audioUrl: "${audioUrl}"
+description: "${escapeFrontmatter(description.replace(/\n/g, ' ').slice(0, 300))}"
+---
+${description}
+`;
+
+  const outPath = join(OUTPUT_DIR, filename);
+  writeFileSync(outPath, frontmatter);
+  console.log(`  wrote ${filename}`);
+}
+
+console.log('Done.');
