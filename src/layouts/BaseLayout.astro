@@ -7,9 +7,19 @@ import BackgroundPattern from '../components/BackgroundPattern.astro';
 interface Props {
   title: string;
   description?: string;
+  image?: string;
 }
 
-const { title, description = 'Stand Like Men Podcast with Daniel Chalenburg and Logan Ingram.' } = Astro.props;
+const {
+  title,
+  description = 'Stand Like Men Podcast with Daniel Chalenburg and Logan Ingram.',
+  image = '/images/StandLikeMenLogo.webp',
+} = Astro.props;
+
+const siteUrl = 'https://standlikemen.com';
+const canonical = new URL(Astro.url.pathname, siteUrl).href;
+const ogImage = new URL(image, siteUrl).href;
+const pageTitle = title === 'Stand Like Men' ? title : `${title} | Stand Like Men`;
 ---
 
 <!doctype html>
@@ -24,8 +34,24 @@ const { title, description = 'Stand Like Men Podcast with Daniel Chalenburg and 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="Stand Like Men Podcast" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
     <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
-<title>{title} | Stand Like Men Podcast</title>
+    <title>{pageTitle}</title>
   </head>
   <body class="bg-bg text-fg min-h-screen flex flex-col transition-colors duration-200 overflow-x-hidden">
     <BackgroundPattern />
