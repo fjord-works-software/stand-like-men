@@ -1,5 +1,5 @@
 ---
-title: "S1 E 65 Good Reputation with Outsiders"
+title: "Good Reputation with Outsiders"
 episodeNumber: 65
 publishDate: 2026-05-18
 duration: "28:43"
