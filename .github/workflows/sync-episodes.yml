@@ -7,10 +7,15 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+  actions: write
 
 jobs:
   sync:
     runs-on: ubuntu-latest
+    outputs:
+      new_episodes: ${{ steps.commit.outputs.new_episodes }}
     steps:
       - uses: actions/checkout@v4
 
@@ -22,13 +27,44 @@ jobs:
         run: node scripts/import-episodes.mjs
 
       - name: Commit new episodes
+        id: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add src/content/episodes/
           if git diff --cached --quiet; then
             echo "No new episodes to commit."
+            echo "new_episodes=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "chore: sync new episodes from Podbean"
             git push
+            echo "new_episodes=true" >> "$GITHUB_OUTPUT"
           fi
+
+  deploy:
+    needs: sync
+    if: needs.sync.outputs.new_episodes == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

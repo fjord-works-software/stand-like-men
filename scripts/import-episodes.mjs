@@ -50,6 +50,10 @@ function formatDate(rfc822) {
   return d.toISOString().split('T')[0];
 }
 
+function stripPodbeanPrefix(title) {
+  return title.replace(/^(?:S\d+\s*)?[Ee][Pp]?\s*\d+\s*(?:S\d+\s*)?[-–]?\s*/, '').trim();
+}
+
 function escapeFrontmatter(str) {
   return str.replace(/"/g, '\\"');
 }
@@ -64,7 +68,7 @@ console.log(`Found ${items.length} episodes`);
 mkdirSync(OUTPUT_DIR, { recursive: true });
 
 for (const item of items) {
-  const title = extractTag(item, 'title');
+  const title = stripPodbeanPrefix(extractTag(item, 'title'));
   const pubDate = extractTag(item, 'pubDate');
   const audioUrl = extractAttr(item, 'enclosure', 'url');
   const duration = parseDuration(extractTag(item, 'itunes:duration'));
