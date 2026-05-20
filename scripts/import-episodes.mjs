@@ -1,4 +1,4 @@
-import { writeFileSync, mkdirSync, existsSync } from 'fs';
+import { writeFileSync, mkdirSync, existsSync, readdirSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -97,8 +97,9 @@ ${description}
 `;
 
   const outPath = join(OUTPUT_DIR, filename);
-  if (existsSync(outPath)) {
-    console.log(`  skipped ${filename} (already exists)`);
+  const existing = readdirSync(OUTPUT_DIR).find(f => f.startsWith(`ep${epNumPadded}-`));
+  if (existing) {
+    console.log(`  skipped ep${epNumPadded} (already exists as ${existing})`);
     continue;
   }
   writeFileSync(outPath, frontmatter);
