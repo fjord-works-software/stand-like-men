@@ -5,15 +5,19 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_DIR = join(__dirname, '../src/content/episodes');
 
+function escapeRegex(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 function extractTag(xml, tag) {
-  const nsTag = tag.includes(':') ? tag : tag;
-  const re = new RegExp(`<${nsTag}[^>]*>([\\s\\S]*?)<\\/${nsTag}>`, 'i');
+  const t = escapeRegex(tag);
+  const re = new RegExp(`<${t}[^>]*>([\\s\\S]*?)<\\/${t}>`, 'i');
   const m = xml.match(re);
   return m ? m[1].trim().replace(/^<!\[CDATA\[/, '').replace(/\]\]>$/, '').trim() : '';
 }
 
 function extractAttr(xml, tag, attr) {
-  const re = new RegExp(`<${tag}[^>]*${attr}="([^"]*)"`, 'i');
+  const re = new RegExp(`<${escapeRegex(tag)}[^>]*${escapeRegex(attr)}="([^"]*)"`, 'i');
   const m = xml.match(re);
   return m ? m[1] : '';
 }
