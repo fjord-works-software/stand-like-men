@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SocialLinks from '../../components/SocialLinks.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -62,11 +61,6 @@ const streamingLinks = [
 
     <div class="prose max-w-none">
       <Content />
-    </div>
-
-    <div class="mt-12 pt-8 border-t border-border">
-      <p class="text-muted text-sm mb-4">Share this episode</p>
-      <SocialLinks />
     </div>
   </article>
 </BaseLayout>
