@@ -1,5 +1,5 @@
 ---
-title: "Marks of an Uncommon Man 4 &amp; 5"
+title: "Marks of an Uncommon Man 4 & 5"
 episodeNumber: 68
 publishDate: 2026-06-22
 duration: "26:59"

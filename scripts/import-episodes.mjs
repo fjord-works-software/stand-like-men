@@ -9,11 +9,27 @@ function escapeRegex(s) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+// The Podbean feed delivers XML-escaped text (e.g. "&amp;", "&#39;").
+// Decode named and numeric HTML entities so content files store clean text.
+function decodeEntities(str) {
+  const named = {
+    amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ',
+    ldquo: '“', rdquo: '”', lsquo: '‘', rsquo: '’',
+    hellip: '…', mdash: '—', ndash: '–',
+  };
+  return str
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCodePoint(parseInt(hex, 16)))
+    .replace(/&#(\d+);/g, (_, dec) => String.fromCodePoint(parseInt(dec, 10)))
+    .replace(/&([a-zA-Z]+);/g, (m, name) => (name in named ? named[name] : m));
+}
+
 function extractTag(xml, tag) {
   const t = escapeRegex(tag);
   const re = new RegExp(`<${t}[^>]*>([\\s\\S]*?)<\\/${t}>`, 'i');
   const m = xml.match(re);
-  return m ? m[1].trim().replace(/^<!\[CDATA\[/, '').replace(/\]\]>$/, '').trim() : '';
+  if (!m) return '';
+  const raw = m[1].trim().replace(/^<!\[CDATA\[/, '').replace(/\]\]>$/, '').trim();
+  return decodeEntities(raw);
 }
 
 function extractAttr(xml, tag, attr) {
